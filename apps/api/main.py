@@ -51,7 +51,9 @@ app.add_middleware(
 # Shared HTTP client (keep-alive + timeout)
 @app.on_event("startup")
 async def _startup():
-    app.state.http = httpx.AsyncClient(timeout=12, http2=True)
+    # remove http2=True
+    app.state.http = httpx.AsyncClient(timeout=12)
+
 
 @app.on_event("shutdown")
 async def _shutdown():
